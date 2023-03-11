@@ -60,9 +60,26 @@ p {
 
 .page-container{
   /* background-image:    url("https://dmxg5wxfqgb4u.cloudfront.net/styles/background_image_xl/s3/image/2022-08/102222-ufc-280-oliveira-vs-makhachev-SG-hero.jpg?h=d1cb525d&itok=H1cfCh9z"); */
-  background:linear-gradient(rgb(0 0 0 / 70%) 0%, rgb(0 0 0 / 70%) 14%), url(https://dmxg5wxfqgb4u.cloudfront.net/styles/background_image_xl/s3/image/2022-08/102222-ufc-280-oliveira-vs-makhachev-SG-hero.jpg?h=d1cb525d&itok=H1cfCh9z);
+  background:linear-gradient(rgb(0 0 0 / 70%) 0%, rgb(0 0 0 / 70%) 14%), url(https://www.kladionica.biz/wp-content/uploads/2023/03/ufc-edit.jpg);
   background-size:     cover;                      /* <------ */
   background-repeat:   no-repeat;
   background-position: center center;              /* optional, center the image */
+
+}
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+    p{
+      font-size: 18px;
+    }
+    .container{
+      margin-left:4%;
+      margin-right:4%
+    }
+    .nume-luptatori{
+      font-size: 12px
+    }
 
 }

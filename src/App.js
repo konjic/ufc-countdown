@@ -1,54 +1,6 @@
 import logo from './logo.svg';
 import React, { useEffect,useState,useRef } from 'react';
 import './App.css';
-const matches = [
-  {
-    key: 1,
-    luptatorUnu: "Charles Oliveira",
-    luptatorDoi: "Islam Makhachev",
-    
-    uri: {luptatorUnu: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2504169.png&h=80&w=80&scale=crop',
-          luptatorDoi: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/3332412.png&h=80&w=80&scale=crop'}
-
-  },
-  {
-    key: 2,
-    luptatorUnu: "Aljamain Sterling",
-    luptatorDoi: "TJ Dillashaw",
-    
-    uri: {luptatorUnu: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/3031559.png&h=80&w=80&scale=crop',
-          luptatorDoi: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/2611719.png&h=80&w=80&scale=crop'}
-
-  },
-  {
-    key: 3,
-    luptatorUnu: "Petr Yan",
-    luptatorDoi: "Sean O'Malley",
-    
-    uri: {luptatorUnu: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4293517.png&h=80&w=80&scale=crop',
-          luptatorDoi: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4205093.png&h=80&w=80&scale=crop'}
-
-  },
-  {
-    key: 4,
-    luptatorUnu: "Beneil Dariush",
-    luptatorDoi: "Mateusz Gamrot",
-    
-    uri: {luptatorUnu: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/3085551.png&h=80&w=80&scale=crop',
-          luptatorDoi: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/3068125.png&h=80&w=80&scale=crop'}
-
-  },
-  {
-    key: 5,
-    luptatorUnu: "Katlyn Chookagian",
-    luptatorDoi: "Manon Fiorot",
-    
-    uri: {luptatorUnu: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4026490.png&h=80&w=80&scale=crop',
-          luptatorDoi: 'https://a.espncdn.com/combiner/i?img=/i/headshots/mma/players/full/4608674.png&h=80&w=80&scale=crop'}
-
-  },
-  
-];
 
 function App() {
 
@@ -57,10 +9,23 @@ function App() {
   const [timerMinutes, setTimerMinutes] = useState('00')
   const [timerSeconds, setTimerSeconds] = useState('00')
 
+  const [ufcEvent, setUfcEvent] = useState([]);
+   useEffect(() => {
+      fetch('https://ufceventapi.vercel.app/ufc-event')
+         .then((response) => response.json())
+         .then((data) => {
+            console.log(data);
+            setUfcEvent(data);
+         })
+         .catch((err) => {
+            console.log(err.message);
+         });
+   }, []);
+
   let interval = useRef()
 
   const startTime = () =>{
-    const countdownDate = new Date('October 22, 2022 19:00:00').getTime()
+    const countdownDate = new Date('March 12, 2023 1:00:00').getTime()
 
     interval= setInterval( ()=>{
       const now = new Date().getTime()
@@ -104,7 +69,7 @@ function App() {
 
             <div className="center-things">
 
-            <p> 
+            <p className='timer'> 
               <a className='timer-color'> {timerDays} </a> Days : 
               <a className='timer-color'> {timerHours} </a> Hours : 
               <a className='timer-color'> {timerMinutes} </a>Minutes : 
@@ -114,13 +79,13 @@ function App() {
         </div>
       
       <div style={{marginTop: '3%', paddingBottom: '5%'}}  >
-        {matches.map(({ luptatorUnu,luptatorDoi,  uri, key }) => (
-<div  className='center-things container' style={{marginTop: '2%', alignItems:'center'}} key={key}>   
-        <p className='nume-luptatori'> {luptatorUnu} </p> 
-      <img src={uri.luptatorUnu}  className='imagini-luptatori'/>
+        {ufcEvent.map((ufcEvent) => (
+<div  className='center-things container' style={{marginTop: '2%', alignItems:'center'}} key={ufcEvent.id}>   
+        <p className='nume-luptatori'> {ufcEvent.luptatorUnu} </p> 
+      <img src={ufcEvent.pozaLuptatorUnu}  className='imagini-luptatori'/>
       <p className='nume-luptatori'> vs </p>
-      <img src={uri.luptatorDoi} className='imagini-luptatori'/>
-        <p className='nume-luptatori'> {luptatorDoi} </p>
+      <img src={ufcEvent.pozaLuptatorDoi} className='imagini-luptatori'/>
+        <p className='nume-luptatori'> {ufcEvent.luptatorDoi} </p>
     
   </div>
 ))}
